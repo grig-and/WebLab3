@@ -1,0 +1,61 @@
+#time {
+    font-size: 150px;
+    color: white;
+}
+
+#date {
+    font-size: 60px;
+    color: gray;
+}
+
+body {
+    /*    center all content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.to_main {
+
+}
+
+.header {
+    color: white;
+    text-align: center;
+    font-family: inherit;
+    font-size: 40px;
+}
+
+body {
+    background-color: #19191a;
+}
+
+body {
+    font-family: Roboto, sans-serif;
+    height: 90vh;
+}
+
+.index_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.button {
+/*    transparent background */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+    scale: 1.8;
+
+}

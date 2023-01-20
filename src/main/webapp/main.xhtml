@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Lab 3</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css"/>
+</h:head>
+<h:body>
+    <h1 class="header">Григорьев Андрей Сергеевич P32111 1011101</h1>
+
+    <p:commandButton value="⮜ Back" styleClass="ui-button-flat back" action="index.xhtml"/>
+
+
+    <div class="img_and_controls">
+        <ui:include src="templates/canvas.html"/>
+        <div class="controls">
+            <h:form>
+                <div class="ui-fluid formgrid grid">
+                    <div class="control_el">
+                        <p:outputLabel for="@next" value="X:"/>
+                        <p:spinner id="input_x" value="#{point.x}" min="-3" max="3" stepFactor="1" required="true"/>
+                    </div>
+                    <div class="control_el">
+                        <p:outputLabel for="@next" value="Y:"/><br/>
+                        <h:inputText id="input_y" styleClass="text_input" value="#{point.y}" required="true"
+                                     converterMessage="must be a number"
+                                     validatorMessage="must be in range -5...5"
+                                     requiredMessage="required">
+                            <f:validator validatorId="valid"/>
+                            <f:attribute name="min" value="-5"/>
+                            <f:attribute name="max" value="5"/>
+                            <f:ajax execute="@this" render="input_y_message"/>
+                        </h:inputText>
+                        <h:message id="input_y_message" for="input_y" styleClass="error_msg"/>
+                    </div>
+                    <div class="control_el">
+                        <p:outputLabel for="@next" value="R:"/><br/>
+                        <h:inputText id="input_r" styleClass="text_input" value="#{point.r}" required="true"
+                                     converterMessage="must be a number"
+                                     validatorMessage="must be in range 2...5"
+                                     requiredMessage="required"
+                                     onchange="refresh()">
+                            <f:validator validatorId="valid"/>
+                            <f:attribute name="min" value="2"/>
+                            <f:attribute name="max" value="5"/>
+                            <f:ajax execute="@this" render="input_r_message"/>
+                        </h:inputText>
+                        <h:message id="input_r_message" for="input_r" styleClass="error_msg"/>
+                    </div>
+
+
+                    <div class="control_el control_el_btns" style="margin-top: 12px">
+                        <p:commandButton id="submit" value="Submit" update="result" action="#{points.submit(point)}"/>
+<!--                        delete button -->
+                        <p:commandButton id="delete" value="Delete" update="result" styleClass="ui-button-danger" action="#{points.delete()}"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+    <h:dataTable id="result" styleClass="table" value="#{points.list}" var="p" rowClasses="#{points.rowClass}">
+        <h:column headerClass="result_header">
+            <f:facet name="header">X</f:facet>
+            <h:outputText value="#{p.x}" converter="jakarta.faces.Float"/>
+        </h:column>
+        <h:column headerClass="result_header">
+            <f:facet name="header">Y</f:facet>
+            <h:outputText value="#{p.y}" converter="jakarta.faces.Float"/>
+        </h:column>
+        <h:column headerClass="result_header">
+            <f:facet name="header">R</f:facet>
+            <h:outputText value="#{p.r}" converter="jakarta.faces.Float"/>
+        </h:column>
+        <h:column headerClass="result_header">
+            <f:facet name="header">Execution time, ns</f:facet>
+            <h:outputText value="#{p.executionTime}" converter="jakarta.faces.Long"/>
+        </h:column>
+        <h:column headerClass="result_header">
+            <f:facet name="header">Current time</f:facet>
+            <h:outputText value="#{p.currentTime}">
+                <f:convertDateTime pattern="HH:mm:ss dd.MM.YY" timeZone="GMT+3"/>
+            </h:outputText>
+        </h:column>
+        <h:column headerClass="result_header">
+            <f:facet name="header">Result</f:facet>
+            <h:outputText value="#{p.hit}"/>
+        </h:column>
+    </h:dataTable>
+    <p:remoteCommand name="addPoint" actionListener="#{points.addPointRC}" update="result"/>
+    <h:outputScript name="main.js" library="js"/>
+</h:body>
+</html>
