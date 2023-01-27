@@ -17,9 +17,21 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>SseTime</servlet-name>
+        <servlet-class>com.example.wl3.beans.SseTime</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SseTime</servlet-name>
+        <url-pattern>/sse</url-pattern>
+    </servlet-mapping>
 
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>saga</param-value>
     </context-param>
+
+
+
 </web-app>

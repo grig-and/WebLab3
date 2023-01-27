@@ -3,10 +3,16 @@
     color: white;
 }
 
-#date {
+/*#date {*/
+/*    font-size: 60px;*/
+/*    color: gray;*/
+/*}*/
+
+#sse {
     font-size: 60px;
     color: gray;
 }
+
 
 body {
     /*    center all content */
